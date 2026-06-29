@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 def colebrook_white(Re, D, Ks):
-    f = 0.01
+    f = 0.02
     while True:
         tmp_f = (1 / (-2 * (math.log10((Ks / (3.7 * D)) + (2.51 / (Re * math.sqrt(f)))))))**2
 
