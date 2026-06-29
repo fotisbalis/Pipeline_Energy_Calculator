@@ -1,5 +1,4 @@
-('C:\\Users\\fotis\\OneDrive\\Έγγραφα\\Υπολογισμός Απωλειών '
- 'Ενέργειας\\energy_deprivation\\build\\EnergyLossCalculator\\PYZ-00.pyz',
+('C:\\Users\\fotis\\OneDrive\\Έγγραφα\\energy_deprivation\\build\\EnergyLossCalculator\\PYZ-00.pyz',
  [('_compat_pickle',
    'c:\\users\\fotis\\appdata\\local\\programs\\python\\python39\\lib\\_compat_pickle.py',
    'PYMODULE'),
