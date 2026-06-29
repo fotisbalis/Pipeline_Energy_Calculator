@@ -13,6 +13,12 @@ def colebrook_white(Re, D, Ks):
         f = tmp_f
     return f
 
+def swamee_jain(Re, D, Ks):
+    x = Ks / (3.7 * D)
+    y = 5.74 / Re**0.9
+    f = 0.25 / (math.log10(x + y))**2
+    return f
+
 def clear_fields():
     entry_d.delete(0, tk.END)
     entry_q.delete(0, tk.END)
@@ -59,15 +65,21 @@ def calculate():
 
         V = (4 * Q) / (math.pi * D**2)
         Re = V * (D / v)
-        F = colebrook_white(Re, D, Ks)
-        J = (F * V**2) / (D * 2 * g)
-        hf = J * L
+        F_cw = colebrook_white(Re, D, Ks)
+        F_sj = swamee_jain(Re, D, Ks)
+        J_cw = (F_cw * V**2) / (D * 2 * g)
+        J_sj = (F_sj * V**2) / (D * 2 * g)
+        hf_cw = J_cw * L
+        hf_sj = J_sj * L
 
         result_v.config(text=f"{V:.2f} m/s")
         result_re.config(text=f"{Re:.0f}")
-        result_f.config(text=f"{F:.4f}")
-        result_j.config(text=f"{J:.4f}")
-        result_hf.config(text=f"{hf:.4f}")
+        result_f_cw.config(text=f"{F_cw:.4f}")
+        result_j_cw.config(text=f"{J_cw:.4f}")
+        result_hf_cw.config(text=f"{hf_cw:.4f}")
+        result_f_sj.config(text=f"{F_sj:.4f}")
+        result_j_sj.config(text=f"{J_sj:.4f}")
+        result_hf_sj.config(text=f"{hf_sj:.4f}")
 
     except ValueError:
         invalid_input()
@@ -126,16 +138,32 @@ ttk.Label(frame, text="Re:").grid(row=9, column=0, sticky="ew", pady=5)
 result_re = ttk.Label(frame, text="-")
 result_re.grid(row=9, column=1, sticky="ew", pady=5)
 
-ttk.Label(frame, text="f:").grid(row=10, column=0, sticky="ew", pady=5)
-result_f = ttk.Label(frame, text="-")
-result_f.grid(row=10, column=1, sticky="ew", pady=5)
+ttk.Label(frame, text="Per Colebrook White").grid(row=10, column=0, sticky="ew", pady=5)
 
-ttk.Label(frame, text="J:").grid(row=11, column=0, sticky="ew", pady=5)
-result_j = ttk.Label(frame, text="-")
-result_j.grid(row=11, column=1, stick="ew", pady=5)
+ttk.Label(frame, text="f:").grid(row=11, column=0, sticky="ew", pady=5)
+result_f_cw = ttk.Label(frame, text="-")
+result_f_cw.grid(row=11, column=1, sticky="ew", pady=5)
 
-ttk.Label(frame, text="hf:").grid(row=12, column=0, sticky="ew", pady=5)
-result_hf = ttk.Label(frame, text="-")
-result_hf.grid(row=12, column=1, stick="ew", pady=5)
+ttk.Label(frame, text="J:").grid(row=12, column=0, sticky="ew", pady=5)
+result_j_cw = ttk.Label(frame, text="-")
+result_j_cw.grid(row=12, column=1, stick="ew", pady=5)
+
+ttk.Label(frame, text="hf:").grid(row=13, column=0, sticky="ew", pady=5)
+result_hf_cw = ttk.Label(frame, text="-")
+result_hf_cw.grid(row=13, column=1, stick="ew", pady=5)
+
+ttk.Label(frame, text="Per Swamee Jain").grid(row=14, column=0, sticky="ew", pady=5)
+
+ttk.Label(frame, text="f:").grid(row=15, column=0, sticky="ew", pady=5)
+result_f_sj = ttk.Label(frame, text="-")
+result_f_sj.grid(row=15, column=1, sticky="ew", pady=5)
+
+ttk.Label(frame, text="J:").grid(row=16, column=0, sticky="ew", pady=5)
+result_j_sj = ttk.Label(frame, text="-")
+result_j_sj.grid(row=16, column=1, stick="ew", pady=5)
+
+ttk.Label(frame, text="hf:").grid(row=17, column=0, sticky="ew", pady=5)
+result_hf_sj = ttk.Label(frame, text="-")
+result_hf_sj.grid(row=17, column=1, stick="ew", pady=5)
 
 root.mainloop()
