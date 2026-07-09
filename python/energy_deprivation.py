@@ -34,9 +34,12 @@ def clear_fields():
 
     result_v.config(text="-")
     result_re.config(text="-")
-    result_f.config(text="-")
-    result_j.config(text="-")
-    result_hf.config(text="-")
+    result_f_cw.config(text="-")
+    result_j_cw.config(text="-")
+    result_hf_cw.config(text="-")
+    result_f_sj.config(text="-")
+    result_j_sj.config(text="-")
+    result_hf_sj.config(text="-")
 
 def invalid_input():
     messagebox.showerror("Invalid input", "Expecting positive numeric values.")

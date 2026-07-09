@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pipe Flow Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <div class="ambient ambient-left"></div>
+    <div class="ambient ambient-right"></div>
+
+    <main class="app">
+      <section class="hero">
+        <h1>Pipe Flow Calculator</h1>
+        <p class="lede">
+          Estimate velocity, Reynolds number, friction factor, hydraulic gradient,
+          and head loss with both Colebrook-White and Swamee-Jain methods.
+        </p>
+      </section>
+
+      <section class="calculator">
+        <form id="calculator-form" class="panel form-panel" novalidate>
+          <div class="panel-heading">
+            <h2>Inputs</h2>
+            <p>Enter positive values only.</p>
+          </div>
+
+          <div class="form-grid">
+            <label class="field">
+              <span>Diameter</span>
+              <div class="input-row">
+                <input id="diameter" name="diameter" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 250">
+                <span class="unit">mm</span>
+              </div>
+            </label>
+
+            <label class="field">
+              <span>Flow Rate</span>
+              <div class="input-row split">
+                <input id="flowRate" name="flowRate" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 120">
+                <select id="flowUnit" name="flowUnit">
+                  <option value="m3h">m^3/h</option>
+                  <option value="ls">L/s</option>
+                </select>
+              </div>
+            </label>
+
+            <label class="field">
+              <span>Roughness</span>
+              <div class="input-row">
+                <input id="roughness" name="roughness" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 0.2">
+                <span class="unit">mm</span>
+              </div>
+            </label>
+
+            <label class="field">
+              <span>Gravity</span>
+              <div class="input-row">
+                <input id="gravity" name="gravity" type="number" min="0" step="any" inputmode="decimal" value="9.81">
+                <span class="unit">m/s^2</span>
+              </div>
+            </label>
+
+            <label class="field">
+              <span>Kinematic Viscosity</span>
+              <div class="input-row">
+                <input id="viscosity" name="viscosity" type="number" min="0" step="any" inputmode="decimal" value="1.15">
+                <span class="unit">e-6 m^2/s</span>
+              </div>
+            </label>
+
+            <label class="field">
+              <span>Pipe Length</span>
+              <div class="input-row">
+                <input id="length" name="length" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 500">
+                <span class="unit">m</span>
+              </div>
+            </label>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="button button-primary">Calculate</button>
+            <button type="button" id="clear-button" class="button button-secondary">Clear</button>
+          </div>
+
+          <p id="error-message" class="error-message" aria-live="polite"></p>
+        </form>
+
+        <section class="panel results-panel">
+          <div class="panel-heading">
+            <h2>Results</h2>
+          </div>
+
+          <div class="summary-grid">
+            <article class="summary-card">
+              <span class="result-label">Velocity</span>
+              <strong id="result-velocity">-</strong>
+            </article>
+
+            <article class="summary-card">
+              <span class="result-label">Reynolds Number</span>
+              <strong id="result-reynolds">-</strong>
+            </article>
+          </div>
+
+          <div class="method-grid">
+            <article class="method-card">
+              <div class="method-header">
+                <h3>Colebrook-White</h3>
+                <p>Iterative friction factor</p>
+              </div>
+
+              <dl class="result-list">
+                <div>
+                  <dt>f</dt>
+                  <dd id="result-f-cw">-</dd>
+                </div>
+                <div>
+                  <dt>J</dt>
+                  <dd id="result-j-cw">-</dd>
+                </div>
+                <div>
+                  <dt>hf</dt>
+                  <dd id="result-hf-cw">-</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="method-card">
+              <div class="method-header">
+                <h3>Swamee-Jain</h3>
+                <p>Explicit friction factor</p>
+              </div>
+
+              <dl class="result-list">
+                <div>
+                  <dt>f</dt>
+                  <dd id="result-f-sj">-</dd>
+                </div>
+                <div>
+                  <dt>J</dt>
+                  <dd id="result-j-sj">-</dd>
+                </div>
+                <div>
+                  <dt>hf</dt>
+                  <dd id="result-hf-sj">-</dd>
+                </div>
+              </dl>
+            </article>
+          </div>
+
+      
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
