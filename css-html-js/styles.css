@@ -186,7 +186,11 @@ select {
 }
 
 .input-row.split {
-  grid-template-columns: 1fr 112px;
+  grid-template-columns: minmax(0, 1fr) minmax(96px, 132px);
+}
+
+.input-row.unit-wide {
+  grid-template-columns: minmax(0, 1fr) minmax(126px, 158px);
 }
 
 input,
@@ -218,6 +222,36 @@ select {
     linear-gradient(45deg, transparent 50%, var(--accent-strong) 50%) calc(100% - 20px) calc(50% - 2px) / 8px 8px no-repeat,
     linear-gradient(135deg, var(--accent-strong) 50%, transparent 50%) calc(100% - 14px) calc(50% - 2px) / 8px 8px no-repeat;
   padding-right: 30px;
+}
+
+.result-unit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: -4px 0 18px;
+  padding: 14px;
+  border: 1px solid rgba(29, 37, 35, 0.08);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.result-unit-grid label {
+  display: grid;
+  gap: 6px;
+}
+
+.result-unit-grid span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.result-unit-grid select {
+  min-height: 42px;
+  padding: 9px 30px 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background-color: var(--panel-strong);
 }
 
 .actions {
@@ -374,7 +408,8 @@ code {
   }
 
   .summary-grid,
-  .method-grid {
+  .method-grid,
+  .result-unit-grid {
     grid-template-columns: 1fr;
   }
 

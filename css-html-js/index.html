@@ -27,15 +27,21 @@
         <form id="calculator-form" class="panel form-panel" novalidate>
           <div class="panel-heading">
             <h2>Inputs</h2>
-            <p>Enter positive values only.</p>
+            <p>Enter positive values. Changing a unit converts the value automatically.</p>
           </div>
 
           <div class="form-grid">
             <label class="field">
               <span>Diameter</span>
-              <div class="input-row">
+              <div class="input-row split">
                 <input id="diameter" name="diameter" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 250">
-                <span class="unit">mm</span>
+                <select id="diameterUnit" name="diameterUnit" aria-label="Diameter unit">
+                  <option value="mm" selected>mm</option>
+                  <option value="cm">cm</option>
+                  <option value="m">m</option>
+                  <option value="in">in</option>
+                  <option value="ft">ft</option>
+                </select>
               </div>
             </label>
 
@@ -43,42 +49,78 @@
               <span>Flow Rate</span>
               <div class="input-row split">
                 <input id="flowRate" name="flowRate" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 120">
-                <select id="flowUnit" name="flowUnit">
-                  <option value="m3h">m^3/h</option>
+                <select id="flowUnit" name="flowUnit" aria-label="Flow rate unit">
+                  <option value="m3h" selected>m&sup3;/h</option>
+                  <option value="m3s">m&sup3;/s</option>
                   <option value="ls">L/s</option>
+                  <option value="lmin">L/min</option>
+                  <option value="lh">L/h</option>
+                  <option value="usgpm">US gal/min</option>
+                  <option value="usgpd">US gal/day</option>
+                  <option value="ukgpm">UK gal/min</option>
+                  <option value="cfs">ft&sup3;/s</option>
+                  <option value="cfm">ft&sup3;/min</option>
+                  <option value="mld">ML/day</option>
                 </select>
               </div>
             </label>
 
             <label class="field">
               <span>Roughness</span>
-              <div class="input-row">
+              <div class="input-row split">
                 <input id="roughness" name="roughness" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 0.2">
-                <span class="unit">mm</span>
+                <select id="roughnessUnit" name="roughnessUnit" aria-label="Roughness unit">
+                  <option value="mm" selected>mm</option>
+                  <option value="um">&micro;m</option>
+                  <option value="cm">cm</option>
+                  <option value="m">m</option>
+                  <option value="in">in</option>
+                  <option value="mil">mil</option>
+                </select>
               </div>
             </label>
 
             <label class="field">
               <span>Gravity</span>
-              <div class="input-row">
+              <div class="input-row split unit-wide">
                 <input id="gravity" name="gravity" type="number" min="0" step="any" inputmode="decimal" value="9.81">
-                <span class="unit">m/s^2</span>
+                <select id="gravityUnit" name="gravityUnit" aria-label="Gravity unit">
+                  <option value="ms2" selected>m/s&sup2;</option>
+                  <option value="fts2">ft/s&sup2;</option>
+                  <option value="cms2">cm/s&sup2;</option>
+                  <option value="ins2">in/s&sup2;</option>
+                  <option value="g0">standard g</option>
+                </select>
               </div>
             </label>
 
             <label class="field">
               <span>Kinematic Viscosity</span>
-              <div class="input-row">
+              <div class="input-row split unit-wide">
                 <input id="viscosity" name="viscosity" type="number" min="0" step="any" inputmode="decimal" value="1.15">
-                <span class="unit">e-6 m^2/s</span>
+                <select id="viscosityUnit" name="viscosityUnit" aria-label="Kinematic viscosity unit">
+                  <option value="mm2s" selected>mm&sup2;/s (cSt)</option>
+                  <option value="m2s">m&sup2;/s</option>
+                  <option value="cm2s">cm&sup2;/s (St)</option>
+                  <option value="ft2s">ft&sup2;/s</option>
+                  <option value="in2s">in&sup2;/s</option>
+                </select>
               </div>
             </label>
 
             <label class="field">
               <span>Pipe Length</span>
-              <div class="input-row">
-                <input id="length" name="length" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 500">
-                <span class="unit">m</span>
+              <div class="input-row split">
+                <input id="length" name="length" type="number" min="0" step="any" inputmode="decimal" value="1">
+                <select id="lengthUnit" name="lengthUnit" aria-label="Pipe length unit">
+                  <option value="m" selected>m</option>
+                  <option value="mm">mm</option>
+                  <option value="cm">cm</option>
+                  <option value="km">km</option>
+                  <option value="in">in</option>
+                  <option value="ft">ft</option>
+                  <option value="yd">yd</option>
+                </select>
               </div>
             </label>
           </div>
@@ -94,6 +136,43 @@
         <section class="panel results-panel">
           <div class="panel-heading">
             <h2>Results</h2>
+            <p>Choose how dimensional results are displayed.</p>
+          </div>
+
+          <div class="result-unit-grid" aria-label="Result unit choices">
+            <label>
+              <span>Velocity</span>
+              <select id="velocityUnit" aria-label="Velocity result unit">
+                <option value="ms" selected>m/s</option>
+                <option value="kmh">km/h</option>
+                <option value="fts">ft/s</option>
+                <option value="mph">mph</option>
+                <option value="kn">knots</option>
+                <option value="cms">cm/s</option>
+              </select>
+            </label>
+            <label>
+              <span>Gradient</span>
+              <select id="gradientUnit" aria-label="Hydraulic gradient result unit">
+                <option value="mm" selected>m/m</option>
+                <option value="mkm">m/km</option>
+                <option value="mmm">mm/m</option>
+                <option value="ftft">ft/ft</option>
+                <option value="ft100ft">ft/100 ft</option>
+                <option value="percent">%</option>
+                <option value="permille">&#8240;</option>
+              </select>
+            </label>
+            <label>
+              <span>Head loss</span>
+              <select id="headUnit" aria-label="Head loss result unit">
+                <option value="m" selected>m</option>
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="ft">ft</option>
+                <option value="in">in</option>
+              </select>
+            </label>
           </div>
 
           <div class="summary-grid">
@@ -117,15 +196,15 @@
 
               <dl class="result-list">
                 <div>
-                  <dt>f</dt>
+                  <dt>Friction factor (f)</dt>
                   <dd id="result-f-cw">-</dd>
                 </div>
                 <div>
-                  <dt>J</dt>
+                  <dt>Gradient (J)</dt>
                   <dd id="result-j-cw">-</dd>
                 </div>
                 <div>
-                  <dt>hf</dt>
+                  <dt>Head loss (hf)</dt>
                   <dd id="result-hf-cw">-</dd>
                 </div>
               </dl>
@@ -139,15 +218,15 @@
 
               <dl class="result-list">
                 <div>
-                  <dt>f</dt>
+                  <dt>Friction factor (f)</dt>
                   <dd id="result-f-sj">-</dd>
                 </div>
                 <div>
-                  <dt>J</dt>
+                  <dt>Gradient (J)</dt>
                   <dd id="result-j-sj">-</dd>
                 </div>
                 <div>
-                  <dt>hf</dt>
+                  <dt>Head loss (hf)</dt>
                   <dd id="result-hf-sj">-</dd>
                 </div>
               </dl>
