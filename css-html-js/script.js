@@ -190,10 +190,13 @@ function formatConvertedInput(value) {
 function formatResult(value, maximumFractionDigits = 4) {
   const magnitude = Math.abs(value);
   if (magnitude !== 0 && (magnitude >= 1e7 || magnitude < 1e-4)) {
-    return value.toExponential(4);
+    return new Intl.NumberFormat("el-GR", {
+      notation: "scientific",
+      maximumFractionDigits: 4
+    }).format(value);
   }
 
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat("el-GR", {
     maximumFractionDigits,
     minimumFractionDigits: 0
   }).format(value);
