@@ -57,7 +57,7 @@ def calculate():
             invalid_input()
             return
 
-        v = v * pow(10, -8)
+        v = v * pow(10, -6)
         D = D_mm * pow(10, -3)
         Ks = Ks_mm * pow(10, -3)
         if q_unit.get() == "m^3/h":
